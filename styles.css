@@ -48,7 +48,7 @@ html, body {
 .logo-image {
     /* Set a reasonable maximum width so it doesn't 
        take up the whole screen. Adjust 200px as needed. */
-    max-width: 300px; 
+    max-width: 200px; 
     
     /* 'width: auto' and 'height: auto' ensure the image 
        maintains its aspect ratio (doesn't look stretched). */
