@@ -1,107 +1,57 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const body = document.body;
-    
-    // 1. Setup the Smooth Scroll Wrapper
-    // We only wrap the SECTIONS, not the background/ripple containers
-    const scrollWrap = document.createElement('div');
-    scrollWrap.id = 'scroll-container';
-    scrollWrap.style.position = 'fixed';
-    scrollWrap.style.top = '0';
-    scrollWrap.style.left = '0';
-    scrollWrap.style.width = '100%';
-    scrollWrap.style.willChange = 'transform';
+    const initials = document.querySelector('.initials');
+    const scrollIndicator = document.querySelector('.scroll-indicator');
 
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => scrollWrap.appendChild(section));
-    body.appendChild(scrollWrap);
-
-    // Initial Variables
-    let sy = 0, dy = 0; 
-    const ease = 0.07; 
-
-    // Set height of body to enable native scrollbar (even if hidden)
-    function updateHeight() {
-        body.style.height = `${scrollWrap.getBoundingClientRect().height}px`;
-    }
-    updateHeight();
-    window.addEventListener('resize', updateHeight);
-
-    // Update target scroll position on scroll
+    // 1. Smooth Fade Out as you scroll
     window.addEventListener('scroll', () => {
-        dy = window.scrollY;
+        const scrolled = window.scrollY;
+        const windowHeight = window.innerHeight;
+        
+        // Calculate progress (0 to 1)
+        const scrollProgress = Math.min(scrolled / windowHeight, 1);
+        
+        if (initials) {
+            // Initials fade and scale down slightly as they get covered
+            initials.style.opacity = 1 - (scrollProgress * 1.5);
+            initials.style.transform = `scale(${1 - (scrollProgress * 0.1)})`;
+        }
+        
+        if (scrollIndicator) {
+            scrollIndicator.style.opacity = 1 - (scrollProgress * 3);
+        }
     });
 
-    // 2. The Main Premium Animation Loop
-    function render() {
-        // Linear Interpolation for "weighty" feel
-        sy = (1 - ease) * sy + ease * dy;
-        const roundedSy = Math.round(sy * 100) / 100;
-
-        // Move the main container
-        scrollWrap.style.transform = `translateY(-${roundedSy}px)`;
-
-        // Handle Floating Initials & Parallax in the same loop for performance
-        const initials = document.querySelector('.initials');
-        if (initials) {
-            // Slower upward movement (Parallax) + Fade out
-            const opacityVal = 1 - (roundedSy / 500);
-            initials.style.transform = `translateY(${roundedSy * 0.4}px) scale(${1 + roundedSy * 0.0002})`;
-            initials.style.opacity = opacityVal;
-        }
-
-        // Handle Background parallax (optional)
-        const mainPage = document.getElementById('main-page');
-        if (mainPage) {
-            mainPage.style.backgroundPositionY = `${roundedSy * 0.5}px`;
-        }
-
-        requestAnimationFrame(render);
-    }
-    requestAnimationFrame(render);
-
-    // 3. Reveal Invitation on Scroll (Intersection Observer)
+    // 2. Reveal Card (Intersection Observer)
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            } else {
-                entry.target.classList.remove('visible');
+                entry.target.querySelector('.invite-card').classList.add('visible');
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.3 });
 
-    const invitePage = document.getElementById('invite-page');
-    if (invitePage) observer.observe(invitePage);
+    observer.observe(document.getElementById('invite-page'));
 
-    // 4. Water Ripple Effect (Stays fixed to screen)
-    body.addEventListener("click", (e) => {
-        const rippleContainer = document.getElementById("ripple-container");
-        if(!rippleContainer) return;
-
+    // 3. Water Ripple Effect
+    document.body.addEventListener("click", (e) => {
         const ripple = document.createElement("span");
-        ripple.classList.add("ripple");
+        ripple.className = "ripple";
         const size = Math.max(window.innerWidth, window.innerHeight) * 0.15;
-        
         ripple.style.width = ripple.style.height = `${size}px`;
-        ripple.style.left = `${e.clientX - size / 2}px`;
-        ripple.style.top = `${e.clientY - size / 2}px`;
-        
-        rippleContainer.appendChild(ripple);
+        ripple.style.left = `${e.clientX - size/2}px`;
+        ripple.style.top = `${e.clientY - size/2}px`;
+        document.getElementById("ripple-container").appendChild(ripple);
         setTimeout(() => ripple.remove(), 1000);
     });
 
-    // 5. Falling Hearts (Stays fixed to screen)
+    // 4. Falling Hearts
     setInterval(() => {
-        const heartsContainer = document.getElementById("hearts-container");
-        if(!heartsContainer) return;
-
         const heart = document.createElement("div");
-        heart.classList.add("heart");
+        heart.className = "heart";
         heart.innerHTML = "♥";
         heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = Math.random() * 5 + 7 + "s"; 
-        heart.style.opacity = Math.random() * 0.3 + 0.2;
-        heartsContainer.appendChild(heart);
-        setTimeout(() => heart.remove(), 9000);
-    }, 600);
+        heart.style.animationDuration = Math.random() * 3 + 5 + "s";
+        document.getElementById("hearts-container").appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+    }, 700);
 });
