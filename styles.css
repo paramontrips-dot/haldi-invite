@@ -1,10 +1,12 @@
-/* Base Resets & Theme Colors */
+/* --- Peaceful Sandalwood & Ivory Theme --- */
 :root {
-    --turmeric: #F6AE2D;
-    --kumkum: #D90429;
+    --sandalwood-light: #FDFBF7; /* Soft creamy ivory */
+    --sandalwood-mid: #F4E8D1;   /* Pale haldi yellow */
+    --sandalwood-deep: #E8D3A2;  /* Muted gold */
     --rose-gold: #B76E79;
     --rose-gold-light: #E0BFB8;
-    --water-bg: rgba(255, 255, 255, 0.1);
+    --text-dark: #3E3A37;        /* Warm charcoal for readability */
+    --text-accent: #8B6D5C;      /* Muted brown/gold for quotes */
 }
 
 body, html {
@@ -12,10 +14,11 @@ body, html {
     padding: 0;
     overflow-x: hidden;
     font-family: 'Playfair Display', serif;
-    background: linear-gradient(135deg, var(--turmeric) 0%, #E85D04 50%, var(--kumkum) 100%);
-    color: white;
+    /* Soft, peaceful gradient */
+    background: linear-gradient(135deg, var(--sandalwood-light) 0%, var(--sandalwood-mid) 50%, var(--sandalwood-deep) 100%);
+    color: var(--text-dark);
     scroll-behavior: smooth;
-    cursor: pointer; /* Suggests the page is clickable for the ripple effect */
+    cursor: pointer; 
 }
 
 /* --- Typography & Elements --- */
@@ -23,26 +26,29 @@ body, html {
     font-family: 'Cinzel', serif;
     font-size: 8rem;
     font-weight: 700;
-    background: linear-gradient(to right, var(--rose-gold), #fff, var(--rose-gold-light));
+    /* Rose gold text */
+    background: linear-gradient(to right, #A65D68, var(--rose-gold), #A65D68);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(183, 110, 121, 0.6), 0 0 40px rgba(255, 255, 255, 0.4);
+    /* Soft drop shadow to stand out against the light background */
+    text-shadow: 2px 5px 15px rgba(183, 110, 121, 0.2);
     animation: shine 3s infinite alternate;
 }
 
 .invite-card {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    /* Frosted glass effect optimized for a light background */
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 20px;
     max-width: 600px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
 }
 
 .haldi-quote {
     font-style: italic;
     font-size: 1.2rem;
-    color: #FFE6A7;
+    color: var(--text-accent);
 }
 
 .divider {
@@ -55,19 +61,20 @@ body, html {
 .lead-text {
     font-size: 1.1rem;
     letter-spacing: 1px;
+    color: var(--text-dark);
 }
 
 .names {
     font-family: 'Cinzel', serif;
     font-size: 2.5rem;
-    color: #FFF3E0;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    color: var(--rose-gold);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 .date-text {
     font-size: 1.2rem;
     font-weight: 600;
-    color: #FFE6A7;
+    color: var(--text-dark);
     letter-spacing: 2px;
 }
 
@@ -78,7 +85,7 @@ body, html {
     border-radius: 30px;
     font-weight: 600;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(183, 110, 121, 0.4);
+    box-shadow: 0 4px 15px rgba(183, 110, 121, 0.3);
 }
 
 .btn-location:hover {
@@ -88,28 +95,26 @@ body, html {
 }
 
 /* --- Animations --- */
-/* Floating on water effect */
 .floating {
-    animation: float 4s ease-in-out infinite;
+    animation: float 5s ease-in-out infinite; /* Slowed down slightly for a more peaceful feel */
 }
 
 @keyframes float {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
+    50% { transform: translateY(-12px); }
     100% { transform: translateY(0px); }
 }
 
-/* Shining text effect */
 @keyframes shine {
     0% { filter: brightness(1); }
-    100% { filter: brightness(1.4); }
+    100% { filter: brightness(1.2); }
 }
 
 /* Scroll Fade Transitions */
 .fade-section {
     opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 1s ease-out, transform 1s ease-out;
+    transform: translateY(40px);
+    transition: opacity 1.2s ease-out, transform 1.2s ease-out;
 }
 
 .fade-section.visible {
@@ -121,10 +126,11 @@ body, html {
 .ripple {
     position: absolute;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
+    /* Softened ripple color */
+    background: rgba(255, 255, 255, 0.6);
     transform: scale(0);
-    animation: ripple-animation 0.8s linear;
-    pointer-events: none; /* Allows clicking through the ripple */
+    animation: ripple-animation 1s linear;
+    pointer-events: none;
 }
 
 @keyframes ripple-animation {
@@ -141,16 +147,16 @@ body, html {
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none; /* Ignore clicks so ripples still work */
+    pointer-events: none;
     z-index: 0;
 }
 
 .heart {
     position: absolute;
     top: -10vh;
-    color: #FFD700; /* Golden color */
+    color: #E3C29F; /* Soft, muted peach-gold to blend with the peaceful theme */
     font-size: 1.5rem;
-    opacity: 0.6;
+    opacity: 0.5;
     animation: fall linear forwards;
 }
 
@@ -165,8 +171,9 @@ body, html {
     position: absolute;
     bottom: 30px;
     text-align: center;
-    opacity: 0.7;
-    animation: float 2s ease-in-out infinite;
+    color: var(--text-accent);
+    opacity: 0.8;
+    animation: float 2.5s ease-in-out infinite;
 }
 
 /* Media Queries for Mobile Responsiveness */
