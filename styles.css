@@ -1,0 +1,176 @@
+/* Base Resets & Theme Colors */
+:root {
+    --turmeric: #F6AE2D;
+    --kumkum: #D90429;
+    --rose-gold: #B76E79;
+    --rose-gold-light: #E0BFB8;
+    --water-bg: rgba(255, 255, 255, 0.1);
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(135deg, var(--turmeric) 0%, #E85D04 50%, var(--kumkum) 100%);
+    color: white;
+    scroll-behavior: smooth;
+    cursor: pointer; /* Suggests the page is clickable for the ripple effect */
+}
+
+/* --- Typography & Elements --- */
+.initials {
+    font-family: 'Cinzel', serif;
+    font-size: 8rem;
+    font-weight: 700;
+    background: linear-gradient(to right, var(--rose-gold), #fff, var(--rose-gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(183, 110, 121, 0.6), 0 0 40px rgba(255, 255, 255, 0.4);
+    animation: shine 3s infinite alternate;
+}
+
+.invite-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    max-width: 600px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.haldi-quote {
+    font-style: italic;
+    font-size: 1.2rem;
+    color: #FFE6A7;
+}
+
+.divider {
+    border-top: 2px solid var(--rose-gold-light);
+    width: 50%;
+    margin: 0 auto;
+    opacity: 0.7;
+}
+
+.lead-text {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.names {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    color: #FFF3E0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.date-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #FFE6A7;
+    letter-spacing: 2px;
+}
+
+.btn-location {
+    background-color: var(--rose-gold);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(183, 110, 121, 0.4);
+}
+
+.btn-location:hover {
+    background-color: #A55C67;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* --- Animations --- */
+/* Floating on water effect */
+.floating {
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Shining text effect */
+@keyframes shine {
+    0% { filter: brightness(1); }
+    100% { filter: brightness(1.4); }
+}
+
+/* Scroll Fade Transitions */
+.fade-section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Water Ripple Effect */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(0);
+    animation: ripple-animation 0.8s linear;
+    pointer-events: none; /* Allows clicking through the ripple */
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Falling Hearts */
+#hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Ignore clicks so ripples still work */
+    z-index: 0;
+}
+
+.heart {
+    position: absolute;
+    top: -10vh;
+    color: #FFD700; /* Golden color */
+    font-size: 1.5rem;
+    opacity: 0.6;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    text-align: center;
+    opacity: 0.7;
+    animation: float 2s ease-in-out infinite;
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+    .initials { font-size: 5rem; }
+    .names { font-size: 2rem; }
+}
