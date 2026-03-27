@@ -1,48 +1,61 @@
 /* --- Peaceful Sandalwood & Ivory Theme --- */
 :root {
-    --sandalwood-light: #FDFBF7; /* Soft creamy ivory */
-    --sandalwood-mid: #F4E8D1;   /* Pale haldi yellow */
-    --sandalwood-deep: #E8D3A2;  /* Muted gold */
+    --sandalwood-light: #FDFBF7; 
+    --sandalwood-mid: #F4E8D1;   
+    --sandalwood-deep: #E8D3A2;  
     --rose-gold: #B76E79;
     --rose-gold-light: #E0BFB8;
-    --text-dark: #3E3A37;        /* Warm charcoal for readability */
-    --text-accent: #8B6D5C;      /* Muted brown/gold for quotes */
+    --text-dark: #3E3A37;        
+    --text-accent: #8B6D5C;      
 }
 
-body, html {
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+/* --- Premium Smooth Scroll & Depth --- */
+html, body {
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
-    font-family: 'Playfair Display', serif;
-    /* Soft, peaceful gradient */
-    background: linear-gradient(135deg, var(--sandalwood-light) 0%, var(--sandalwood-mid) 50%, var(--sandalwood-deep) 100%);
-    color: var(--text-dark);
-    scroll-behavior: smooth;
-    cursor: pointer; 
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden; /* We will handle scrolling via JS for a 'Locked' premium feel */
+    background: linear-gradient(135deg, var(--sandalwood-light), var(--sandalwood-mid), var(--sandalwood-deep));
+    background-attachment: fixed;
 }
+
+/* Keep the rest of your code as is... */
 
 /* --- Typography & Elements --- */
 .initials {
     font-family: 'Cinzel', serif;
     font-size: 8rem;
     font-weight: 700;
-    /* Rose gold text */
     background: linear-gradient(to right, #A65D68, var(--rose-gold), #A65D68);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    /* Soft drop shadow to stand out against the light background */
     text-shadow: 2px 5px 15px rgba(183, 110, 121, 0.2);
-    animation: shine 3s infinite alternate;
+    
+    /* Parallax hardware boost */
+    transform: translateZ(0); 
+    transition: transform 0.1s linear; 
 }
 
 .invite-card {
-    /* Frosted glass effect optimized for a light background */
+    /* Glassmorphism focus */
     background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 20px;
-    max-width: 600px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transform: translateY(50px) scale(0.95);
+    transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1); /* Elegant decelerating curve */
+}
+
+.invite-card.visible {
+    transform: translateY(0) scale(1);
+    opacity: 1;
 }
 
 .haldi-quote {
